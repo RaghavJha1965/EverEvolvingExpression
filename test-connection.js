@@ -1,19 +1,19 @@
 const { MongoClient } = require('mongodb');
 
-// IMPORTANT: Replace these parts with your actual values from MongoDB Atlas
+// IMPORTANT: You need to add your database name after .net/ and before ?
 // Your connection string should look like this:
-// mongodb+srv://USERNAME:PASSWORD@CLUSTERNAME.abc123.mongodb.net/DATABASE?retryWrites=true&w=majority&appName=YourAppName
+// mongodb+srv://USERNAME:PASSWORD@CLUSTERNAME.abc123.mongodb.net/DATABASE_NAME?retryWrites=true&w=majority&appName=YourAppName
 
-const uri = "mongodb+srv://ABC:97KPBFYBbdtqdka3@alphabusinessconsulting.b0xj8yf.mongodb.net/?retryWrites=true&w=majority&appName=AlphaBusinessConsultingHostingWebsites";
+const uri = "mongodb+srv://ABC:97KPBFYBbdtqdka3@alphabusinessconsulting.b0xj8yf.mongodb.net/YOUR_DATABASE_NAME?retryWrites=true&w=majority&appName=AlphaBusinessConsultingHostingWebsites";
 
 async function testConnection() {
   try {
     console.log('Testing MongoDB connection...');
     console.log('Make sure you have:');
-    console.log('1. Correct username (ABC)');
-    console.log('2. Correct password');
-    console.log('3. Correct cluster name (NOT alphabusines)');
-    console.log('4. Correct database name');
+    console.log('1. Correct username (ABC) ✅');
+    console.log('2. Correct password ✅');
+    console.log('3. Correct cluster name (alphabusinessconsulting.b0xj8yf.mongodb.net) ✅');
+    console.log('4. Correct database name (REPLACE YOUR_DATABASE_NAME) ❌');
     console.log('');
     
     const client = new MongoClient(uri);
@@ -31,9 +31,9 @@ async function testConnection() {
     console.log('');
     console.log('To fix this:');
     console.log('1. Go to MongoDB Atlas');
-    console.log('2. Click "Connect" on your cluster');
-    console.log('3. Copy the EXACT connection string shown');
-    console.log('4. Replace the URI variable above');
+    console.log('2. Click "Browse Collections" on your cluster');
+    console.log('3. Look at the database name shown');
+    console.log('4. Replace YOUR_DATABASE_NAME above with the real name');
   }
 }
 
