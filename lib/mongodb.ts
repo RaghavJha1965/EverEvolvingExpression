@@ -1,48 +1,27 @@
 import mongoose from 'mongoose'
 
-// Extend the global type to include mongoose
-declare global {
-  var mongoose: {
-    conn: typeof mongoose | null
-    promise: Promise<typeof mongoose> | null
-  } | undefined
-}
-
 const MONGODB_URI = process.env.MONGODB_URI!
 
 if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local')
 }
 
-let cached = global.mongoose
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null }
-}
+let cached: any = null
 
 async function dbConnect() {
-  if (cached.conn) {
-    return cached.conn
-  }
-
-  if (!cached.promise) {
-    const opts = {
-      bufferCommands: false,
-    }
-
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose
-    })
+  if (cached) {
+    return cached
   }
 
   try {
-    cached.conn = await cached.promise
-  } catch (e) {
-    cached.promise = null
-    throw e
+    cached = await mongoose.connect(MONGODB_URI, {
+      bufferCommands: false,
+    })
+    return cached
+  } catch (error) {
+    console.error('MongoDB connection error:', error)
+    throw error
   }
-
-  return cached.conn
 }
 
 export default dbConnect 
