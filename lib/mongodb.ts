@@ -1,5 +1,13 @@
 import mongoose from 'mongoose'
 
+// Extend the global type to include mongoose
+declare global {
+  var mongoose: {
+    conn: typeof mongoose | null
+    promise: Promise<typeof mongoose> | null
+  } | undefined
+}
+
 const MONGODB_URI = process.env.MONGODB_URI!
 
 if (!MONGODB_URI) {
