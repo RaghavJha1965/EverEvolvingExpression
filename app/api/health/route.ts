@@ -8,11 +8,11 @@ export async function GET() {
       timestamp: new Date().toISOString(),
       environment: process.env.NODE_ENV || 'development'
     })
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json({
       status: 'error',
       message: 'API error',
-      error: error.toString()
+      error: error?.toString() || 'Unknown error'
     }, { status: 500 })
   }
 } 
